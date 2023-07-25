@@ -1,0 +1,16 @@
+# Set default values for all following accounts.
+defaults
+auth           on
+tls            on
+tls_trust_file ~/.config/protonmail/bridge/cert.pem
+logfile        ~/.local/share/msmtp/msmtp.log
+
+account         master
+host            127.0.0.1
+port            1025
+from            simon@simonhugh.xyz
+user            simon@simonhugh.xyz
+tls_starttls    on
+passwordeval    "pass protonmail-credentials/bridge | head -n1"
+
+account default : master
