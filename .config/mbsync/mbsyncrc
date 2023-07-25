@@ -1,0 +1,112 @@
+
+#####################
+### simonhugh.xyz ###
+#####################
+
+IMAPAccount simonhugh.xyz
+Host 127.0.0.1
+Port 1143
+User simon@simonhugh.xyz
+PassCmd "pass protonmail-credentials/bridge | head -n1"
+SSLType STARTTLS
+SSLVersions TLSv1.2
+CertificateFile ~/.config/protonmail/bridge/cert.pem
+
+
+
+### Remote storage ###
+IMAPStore simonhugh.xyz-remote
+Account simonhugh.xyz
+
+
+### Local storage ###
+MaildirStore simonhugh.xyz-local
+SubFolders Verbatim
+Path ~/.mail/
+Inbox ~/.mail/INBOX/
+
+
+# All-Mail
+# Channel simonhugh.xyz-allmail
+# Far :simonhugh.xyz-remote:"All Mail"
+# Near :simonhugh.xyz-local:"All_Mail"
+# Create Both
+# Expunge Both
+# SyncState *
+
+# Inbox
+Channel simonhugh.xyz-inbox
+Far :simonhugh.xyz-remote:"INBOX"
+Near :simonhugh.xyz-local:INBOX
+Create Both
+Expunge Both
+SyncState *
+
+# Drafts
+Channel simonhugh.xyz-drafts
+Far :simonhugh.xyz-remote:"Drafts"
+Near :simonhugh.xyz-local:Drafts
+Create Both
+Expunge Both
+SyncState *
+
+# Sent
+Channel simonhugh.xyz-sent
+Far :simonhugh.xyz-remote:"Sent"
+Near :simonhugh.xyz-local:Sent
+Create Both
+Expunge Both
+SyncState *
+
+# Trash
+Channel simonhugh.xyz-deleted
+Far :simonhugh.xyz-remote:"Trash"
+Near :simonhugh.xyz-local:Trash
+Create Both
+Expunge Both
+SyncState *
+
+# Archive
+Channel simonhugh.xyz-archive
+Far :simonhugh.xyz-remote:"Archive"
+Near :simonhugh.xyz-local:Archive
+Create Both
+Expunge Both
+SyncState *
+
+# Spam
+Channel simonhugh.xyz-spam
+Far :simonhugh.xyz-remote:"Spam"
+Near :simonhugh.xyz-local:Spam
+Create Both
+Expunge Both
+SyncState *
+
+# Starred
+Channel simonhugh.xyz-starred
+Far :simonhugh.xyz-remote:"Starred"
+Near :simonhugh.xyz-local:Starred
+Create Both
+Expunge Both
+SyncState *
+
+# Labels
+Channel simonhugh.xyz-labels
+Far :simonhugh.xyz-remote:"Labels"
+Near :simonhugh.xyz-local:Labels
+Patterns *
+Create Both
+Expunge Both
+SyncState *
+
+### Create Group ###
+Group simonhugh.xyz
+Channel simonhugh.xyz-allmail
+Channel simonhugh.xyz-inbox
+Channel simonhugh.xyz-drafts
+Channel simonhugh.xyz-sent
+Channel simonhugh.xyz-deleted
+Channel simonhugh.xyz-spam
+Channel simonhugh.xyz-archive
+Channel simonhugh.xyz-starred
+Channel simonhugh.xyz-Labels
