@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# FCLIP
+# 
+# AUTHOR: Simon H Moore
+#
+# DATE: Wed Feb 10 2021
+#
+# DESC: fzf clipboard manager using clipmenu
+
+# Check for dependencies
+_dependency(){ command -v "$1" > /dev/null || { echo "error: "$1" not found"; exit 1; }; }
+_dependency "clipmenu"
+_dependency "clipman"
+_dependency "fzf"
+_dependency "wtype"
+
+# type out using xdotool
+_write(){
+    # setsid xdotool sleep 0.1 type --clearmodifiers "$1" &
+    setsid wtype -d 10 -s 10 "$1" &
+    sleep 0.01
+}
+
+_qr(){
+    setsid sh -c "qrencode '$1' -s 8 -o - | imv - &"
+}
+
+# Launch clipmenu with fzf
+# choice="$( CM_LAUNCHER=rofi-script clipmenu | fzf --expect='alt-n,alt-w' )"
+choice="$( clipman pick --print0 --tool STDOUT | fzf --read0 --expect='alt-n,alt-w,alt-o,alt-q,alt-p,alt-return' )"
+
+key="$( echo "$choice" | sed -n '1p' )"
+# selection="$( CM_OUTPUT_CLIP=1 CM_LAUNCHER=rofi-script clipmenu "$( echo "$choice" | tail -n1 )" )"
+selection="$( echo "$choice" | sed '1d' )"
+
+case "$key" in
+    alt-n) notify-send "$selection" ;;
+    alt-w|alt-return) _write "$selection" ;;
+    alt-o) setsid www "$selection" & sleep 0.001 ;;
+    alt-q) _qr "$selection" ;;
+    alt-p) echo "$selection" ;;
+    *) echo "$selection" | wl-copy; echo "$selection" | wl-copy -p ;;
+esac
