@@ -1,0 +1,30 @@
+[user]
+	email = simon@simonhugh.xyz
+	name = Simon H Moore
+    username = simonhugh
+
+[diff]
+	tool = vimdiff
+
+[difftool]
+	prompt = false
+
+[alias]
+    s   = status
+    p  = push
+    pa = !git remote | xargs -L1 git push
+    paa = !git remote | xargs -L1 git push --all
+    pl  = pull
+    c  = commit
+    ca  = commit --amend
+    b   = branch
+    f   = fetch
+    m   = merge
+    o   = checkout
+    ob   = checkout -b
+    om  = checkout master
+    rs  = restore
+    sp  = log --all --graph --decorate --oneline --simplify-by-decoration
+    lg  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    df  = diff
+    dfs = diff --staged
